@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, render_template, redirect, url_for, send_file
 from forms import QueryForm, AudioEditForm
 from base64 import b32encode, b32decode
