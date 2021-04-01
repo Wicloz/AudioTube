@@ -24,7 +24,7 @@ def landing():
     if form.validate_on_submit():
         return redirect(url_for('editor', url=b32encode(form.url.data.encode('UTF8'))))
 
-    return render_template('landing.html', title='IntelliFlow', form=form)
+    return render_template('landing.html', form=form)
 
 
 @app.route('/download/<url>', methods=['get', 'post'])
@@ -78,7 +78,7 @@ def editor(url):
         if not form.album.data:
             form.album.data = try_get_multiple(meta, 'album')
 
-    return render_template('editor.html', title='IntelliFlow', form=form, thumbnail=meta['thumbnail'])
+    return render_template('editor.html', form=form, thumbnail=meta['thumbnail'])
 
 
 if __name__ == '__main__':
