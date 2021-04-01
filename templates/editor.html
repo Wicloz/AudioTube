@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<img src="{{ thumbnail }}" alt="Video Thumbnail">
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div>
+    {{ form.artist.label() }}
+    {{ form.artist() }}
+    {% if form.artist.errors %}
+    {{ form.artist.errors }}
+    {% endif %}
+  </div>
+  <div>
+    {{ form.title.label() }}
+    {{ form.title() }}
+    {% if form.title.errors %}
+    {{ form.title.errors }}
+    {% endif %}
+  </div>
+  <div>
+    {{ form.album.label() }}
+    {{ form.album() }}
+    {% if form.album.errors %}
+    {{ form.album.errors }}
+    {% endif %}
+  </div>
+  {{ form.submit() }}
+</form>
+{% endblock content %}

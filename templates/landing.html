@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div>
+    {{ form.url.label() }}
+    {{ form.url() }}
+    {% if form.url.errors %}
+    {{ form.url.errors }}
+    {% endif %}
+  </div>
+  {{ form.submit() }}
+</form>
+{% endblock content %}
