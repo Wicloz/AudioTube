@@ -1,0 +1,4 @@
+flask
+flask-wtf
+youtube_dl
+mutagen
