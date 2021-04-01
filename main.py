@@ -59,6 +59,7 @@ def editor(url):
             mp3['artist'] = form.artist.data
             mp3['title'] = form.title.data
             mp3['album'] = form.album.data
+            mp3['genre'] = form.genre.data
             mp3.save()
 
             with open(join(temp, compound + '.mp3'), 'rb') as fp:
@@ -79,8 +80,10 @@ def editor(url):
             form.title.data = try_get_multiple(meta, 'track', 'title')
         if not form.album.data:
             form.album.data = try_get_multiple(meta, 'album')
+        if not form.genre.data:
+            form.genre.data = try_get_multiple(meta, 'genre')
 
-    return render_template('editor.html', form=form, thumbnail=meta['thumbnail'])
+    return render_template('editor.html', form=form, thumbnail=meta['thumbnail'], channel=meta['uploader'])
 
 
 if __name__ == '__main__':

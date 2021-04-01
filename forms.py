@@ -12,4 +12,5 @@ class AudioEditForm(FlaskForm):
     artist = StringField(label='Artist', validators=[InputRequired()])
     title = StringField(label='Title', validators=[InputRequired()])
     album = StringField(label='Album')
+    genre = StringField(label='Genre')
     submit = SubmitField(label='Start Download!')
