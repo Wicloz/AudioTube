@@ -36,12 +36,11 @@ def editor(url):
     form = AudioEditForm()
 
     if form.validate_on_submit():
-        compound = f'{form.artist.data} - {form.title.data}' if form.artist.data else form.title.data
         with TemporaryDirectory() as temp:
             pass
 
             with YoutubeDL({
-                'outtmpl': join(temp, compound + '.%(ext)s'),
+                'outtmpl': join(temp, 'download.%(ext)s'),
                 'format': 'bestaudio/best',
                 'writethumbnail': True,
                 'postprocessors': [{
@@ -56,21 +55,21 @@ def editor(url):
             }) as ydl:
                 ydl.download([url])
 
-            mp3 = EasyID3(join(temp, compound + '.mp3'))
+            mp3 = EasyID3(join(temp, 'download.mp3'))
             mp3['artist'] = form.artist.data
             mp3['title'] = form.title.data
             mp3['album'] = form.album.data
             mp3['genre'] = form.genre.data
             mp3.save()
 
-            with open(join(temp, compound + '.mp3'), 'rb') as fp:
+            with open(join(temp, 'download.mp3'), 'rb') as fp:
                 memory = BytesIO(fp.read())
 
         return send_file(
             filename_or_fp=memory,
             as_attachment=True,
             mimetype='audio/mpeg',
-            attachment_filename=compound + '.mp3',
+            attachment_filename=((form.artist.data + ' - ') if form.artist.data else '') + form.title.data + '.mp3',
         )
 
     with YoutubeDL({'skip_download': True}) as ydl:
