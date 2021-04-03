@@ -35,7 +35,7 @@ def editor(url):
     form = AudioEditForm()
 
     if form.validate_on_submit():
-        compound = f'{form.artist.data} - {form.title.data}'
+        compound = f'{form.artist.data} - {form.title.data}' if form.artist.data else form.title.data
         with TemporaryDirectory() as temp:
             pass
 
