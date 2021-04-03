@@ -8,7 +8,7 @@
     <pre>{{ channel }}</pre>
   </div>
 
-  <form method="post">
+  <form method="post" onsubmit="preprocessForm(this)">
     {{ form.hidden_tag() }}
     <div>
       {{ form.artist.label() }}
@@ -49,6 +49,14 @@
     function formClear(id) {
       event.preventDefault();
       document.getElementById(id).value = '';
+    }
+  </script>
+
+  <script>
+    function preprocessForm(form) {
+      form.querySelectorAll('input[type=text]').forEach((item) => {
+        item.value = item.value.trim();
+      });
     }
   </script>
 
