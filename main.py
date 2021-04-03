@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 from os.path import join
 from mutagen.easyid3 import EasyID3
 from io import BytesIO
+from socket import gethostname
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'n1MF4absCxYuRyknQeNutaK9kcBW4o38'
@@ -87,4 +88,7 @@ def editor(url):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if gethostname() == 'scramjet':
+        app.run()
+    else:
+        app.run(debug=True, port=3000, host='0.0.0.0')
