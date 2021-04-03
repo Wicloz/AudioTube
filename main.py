@@ -75,14 +75,12 @@ def editor(url):
 
     with YoutubeDL({'skip_download': True}) as ydl:
         meta = ydl.extract_info(url)
-        if not form.artist.data:
-            form.artist.data = try_get_multiple(meta, 'artist', 'creator', 'uploader', 'uploader_id')
-        if not form.title.data:
-            form.title.data = try_get_multiple(meta, 'track', 'title')
-        if not form.album.data:
-            form.album.data = try_get_multiple(meta, 'album')
-        if not form.genre.data:
-            form.genre.data = try_get_multiple(meta, 'genre')
+
+    if not form.is_submitted():
+        form.artist.data = try_get_multiple(meta, 'artist', 'creator', 'uploader', 'uploader_id')
+        form.title.data = try_get_multiple(meta, 'track', 'title')
+        form.album.data = try_get_multiple(meta, 'album')
+        form.genre.data = try_get_multiple(meta, 'genre')
 
     return render_template('editor.html', form=form, thumbnail=meta['thumbnail'], channel=meta['uploader'])
 
