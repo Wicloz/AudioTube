@@ -13,6 +13,7 @@
     <div>
       {{ form.artist.label() }}
       {{ form.artist() }}
+      <button onclick="formClear('artist')">x</button>
       {% if form.artist.errors %}
         {{ form.artist.errors }}
       {% endif %}
@@ -20,6 +21,7 @@
     <div>
       {{ form.title.label() }}
       {{ form.title() }}
+      <button onclick="formClear('title')">x</button>
       {% if form.title.errors %}
         {{ form.title.errors }}
       {% endif %}
@@ -27,6 +29,7 @@
     <div>
       {{ form.album.label() }}
       {{ form.album() }}
+      <button onclick="formClear('album')">x</button>
       {% if form.album.errors %}
         {{ form.album.errors }}
       {% endif %}
@@ -34,11 +37,19 @@
     <div>
       {{ form.genre.label() }}
       {{ form.genre() }}
+      <button onclick="formClear('genre')">x</button>
       {% if form.genre.errors %}
         {{ form.genre.errors }}
       {% endif %}
     </div>
     {{ form.submit() }}
   </form>
+
+  <script>
+    function formClear(id) {
+      event.preventDefault();
+      document.getElementById(id).value = '';
+    }
+  </script>
 
 {% endblock content %}
