@@ -9,7 +9,7 @@ from os.path import join
 from mutagen.easyid3 import EasyID3
 from io import BytesIO
 from socket import gethostname
-from slugify import slugify
+from unihandecode import Unihandecoder
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'n1MF4absCxYuRyknQeNutaK9kcBW4o38'
@@ -41,9 +41,19 @@ def editor(url):
         with TemporaryDirectory() as temp:
             pass
 
+            language = 'uni'
+            country = 'XW'
+            if form.language.data:
+                language, country = form.language.data.split('_')
+
+            try:
+                decoder = Unihandecoder(language)
+            except FileNotFoundError:
+                decoder = Unihandecoder('uni')
+
             artists_list = [' '.join(reversed(artist.split(', '))) for artist in form.artist.data]
             artists_fancy = ' & '.join(artists_list)
-            artists_slugs = [slugify(artist) for artist in form.artist.data]
+            artists_slugs = [decoder.decode(artist).lower() for artist in form.artist.data]
 
             with YoutubeDL({
                 'outtmpl': join(temp, 'download.%(ext)s'),
@@ -68,6 +78,7 @@ def editor(url):
             mp3['title'] = form.title.data
             mp3['album'] = form.album.data
             mp3['genre'] = form.genre.data
+            mp3['releasecountry'] = country
             mp3.save()
 
             with open(join(temp, 'download.mp3'), 'rb') as fp:

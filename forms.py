@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList
-from wtforms.validators import URL, InputRequired
+from wtforms.validators import URL, InputRequired, Regexp
 
 
 class QueryForm(FlaskForm):
@@ -13,4 +13,5 @@ class AudioEditForm(FlaskForm):
     title = StringField(label='Title', validators=[InputRequired()])
     album = StringField(label='Album')
     genre = StringField(label='Genre')
+    language = StringField(label='Language', validators=[Regexp(r'^$|^[a-z]{2}_[A-Z]{2}$')])
     submit = SubmitField(label='Start Download!')

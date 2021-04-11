@@ -42,6 +42,14 @@
         {{ form.genre.errors }}
       {% endif %}
     </div>
+    <div>
+      {{ form.language.label() }}
+      {{ form.language() }}
+      <button onclick="formClear('language')">x</button>
+      {% if form.language.errors %}
+        {{ form.language.errors }}
+      {% endif %}
+    </div>
     {{ form.submit() }}
   </form>
 
