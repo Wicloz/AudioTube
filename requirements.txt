@@ -3,3 +3,4 @@ flask-wtf
 youtube_dl
 mutagen
 wtforms
+python-slugify
