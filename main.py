@@ -69,14 +69,14 @@ def editor(url):
             filename_or_fp=memory,
             as_attachment=True,
             mimetype='audio/mpeg',
-            attachment_filename=((form.artist.data + ' - ') if form.artist.data else '') + form.title.data + '.mp3',
+            attachment_filename=' & '.join(form.artist.data) + ' - ' + form.title.data + '.mp3',
         )
 
     with YoutubeDL({'skip_download': True}) as ydl:
         meta = ydl.extract_info(url)
 
     if not form.is_submitted():
-        form.artist.data = try_get_multiple(meta, 'artist', 'creator', 'uploader', 'uploader_id')
+        form.artist.entries[0].data = try_get_multiple(meta, 'artist', 'creator', 'uploader', 'uploader_id')
         form.title.data = try_get_multiple(meta, 'track', 'title')
         form.album.data = try_get_multiple(meta, 'album')
         form.genre.data = try_get_multiple(meta, 'genre')

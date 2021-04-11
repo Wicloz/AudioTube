@@ -13,7 +13,7 @@
     <div>
       {{ form.artist.label() }}
       {{ form.artist() }}
-      <button onclick="formClear('artist')">x</button>
+      <button onclick="addArtistField(this)">+</button>
       {% if form.artist.errors %}
         {{ form.artist.errors }}
       {% endif %}
@@ -49,6 +49,23 @@
     function formClear(id) {
       event.preventDefault();
       document.getElementById(id).value = '';
+    }
+  </script>
+
+  <script>
+    function addArtistField(button) {
+      event.preventDefault();
+
+      let index = 0;
+      button.parentElement.querySelectorAll('ul li input').forEach((item) => {
+        index = Math.max(index, parseInt(item.name.split('-')[1]) + 1);
+      });
+
+      let node = document.createElement('li');
+      node.innerHTML =
+        '<label for="artist-' + index + '">Artist-' + index + '</label> ' +
+        '<input id="artist-' + index + '" name="artist-' + index + '" type="text">';
+      button.parentElement.querySelector('ul').appendChild(node);
     }
   </script>
 
