@@ -4,7 +4,7 @@ from wtforms.validators import URL, InputRequired
 
 
 class QueryForm(FlaskForm):
-    url = StringField(label='URL', validators=[URL()])
+    url = StringField(label='URL', validators=[InputRequired(), URL()])
     submit = SubmitField(label='Start Download!')
 
 
