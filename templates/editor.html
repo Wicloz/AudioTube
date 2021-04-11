@@ -49,6 +49,11 @@
       {% if form.language.errors %}
         {{ form.language.errors }}
       {% endif %}
+      <p>
+        Use locale tags of the format
+        <code>en_US</code>, <code>nl_NL</code>, <code>ja_JP</code>, <code>zh_CN</code>, etc.
+        Can be left empty.
+      </p>
     </div>
     {{ form.submit() }}
   </form>
