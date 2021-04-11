@@ -11,7 +11,7 @@
   <form method="post" onsubmit="preprocessForm(this)">
     {{ form.hidden_tag() }}
     <div>
-      {{ form.artist.label() }}
+      When applicable, format proper names as "family name, given name":
       {{ form.artist() }}
       <button onclick="addArtistField(this)">+</button>
       {% if form.artist.errors %}
@@ -63,8 +63,8 @@
 
       let node = document.createElement('li');
       node.innerHTML =
-        '<label for="artist-' + index + '">Artist-' + index + '</label> ' +
-        '<input id="artist-' + index + '" name="artist-' + index + '" type="text">';
+        '<label for="artist-' + index + '">Artist</label> ' +
+        '<input id="artist-' + index + '" name="artist-' + index + '" required type="text">';
       button.parentElement.querySelector('ul').appendChild(node);
     }
   </script>

@@ -9,7 +9,7 @@ class QueryForm(FlaskForm):
 
 
 class AudioEditForm(FlaskForm):
-    artist = FieldList(StringField(validators=[InputRequired()]), label='Artists', min_entries=1)
+    artist = FieldList(StringField(label='Artist', validators=[InputRequired()]), min_entries=1)
     title = StringField(label='Title', validators=[InputRequired()])
     album = StringField(label='Album')
     genre = StringField(label='Genre')
