@@ -9,9 +9,11 @@ from os.path import join
 from mutagen.easyid3 import EasyID3
 from io import BytesIO
 from socket import gethostname
+from slugify import slugify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'n1MF4absCxYuRyknQeNutaK9kcBW4o38'
+EasyID3.RegisterTXXXKey('artists', 'ARTISTS')
 
 
 def try_get_multiple(mapping, *keys):
@@ -39,6 +41,10 @@ def editor(url):
         with TemporaryDirectory() as temp:
             pass
 
+            artists_list = [' '.join(reversed(artist.split(', '))) for artist in form.artist.data]
+            artists_fancy = ' & '.join(artists_list)
+            artists_slugs = [slugify(artist) for artist in form.artist.data]
+
             with YoutubeDL({
                 'outtmpl': join(temp, 'download.%(ext)s'),
                 'format': 'bestaudio/best',
@@ -56,7 +62,9 @@ def editor(url):
                 ydl.download([url])
 
             mp3 = EasyID3(join(temp, 'download.mp3'))
-            mp3['artist'] = form.artist.data
+            mp3['artists'] = artists_list
+            mp3['artist'] = artists_fancy
+            mp3['artistsort'] = artists_slugs
             mp3['title'] = form.title.data
             mp3['album'] = form.album.data
             mp3['genre'] = form.genre.data
@@ -69,7 +77,7 @@ def editor(url):
             filename_or_fp=memory,
             as_attachment=True,
             mimetype='audio/mpeg',
-            attachment_filename=' & '.join(form.artist.data) + ' - ' + form.title.data + '.mp3',
+            attachment_filename=artists_fancy + ' - ' + form.title.data + '.mp3',
         )
 
     with YoutubeDL({'skip_download': True}) as ydl:
