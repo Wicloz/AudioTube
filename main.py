@@ -85,7 +85,7 @@ def editor(url):
                 memory = BytesIO(fp.read())
 
         return send_file(
-            filename_or_fp=memory,
+            path_or_file=memory,
             as_attachment=True,
             mimetype='audio/mpeg',
             attachment_filename=artists_fancy + ' - ' + form.title.data + '.mp3',
