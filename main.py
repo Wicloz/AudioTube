@@ -8,7 +8,6 @@ from tempfile import TemporaryDirectory
 from os.path import join
 from mutagen.easyid3 import EasyID3
 from io import BytesIO
-from socket import gethostname
 from unihandecode import Unihandecoder
 
 app = Flask(__name__)
