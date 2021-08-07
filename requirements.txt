@@ -1,6 +1,6 @@
 flask
 flask-wtf
-youtube_dl
+youtube-dl
 mutagen
 wtforms
 unihandecode
