@@ -87,7 +87,7 @@ def editor(url):
             path_or_file=memory,
             as_attachment=True,
             mimetype='audio/mpeg',
-            attachment_filename=artists_fancy + ' - ' + form.title.data + '.mp3',
+            download_name=artists_fancy + ' - ' + form.title.data + '.mp3',
         )
 
     with YoutubeDL({'skip_download': True}) as ydl:
